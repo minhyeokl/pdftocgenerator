@@ -1,6 +1,6 @@
 # 표지 생성기
 ## 다운로드
-[다운받기]('/dist/tocGenerator.exe')
+[다운받기](/dist/tocGenerator.exe)
 
 ## 사용법
 1. PDF 파일을 불러옵니다.
