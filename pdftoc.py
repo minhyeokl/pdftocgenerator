@@ -3,6 +3,7 @@ from operator import itemgetter
 import re
 from PyPDF2 import PdfFileWriter, PdfFileReader
 from fitz.fitz import Page
+import sys
 
 def fonts(doc):
     styles = {}
@@ -138,7 +139,6 @@ def pdftoc(filename):
     make_pdf_toc(toc_data, h2tag, txt_toc, filename)
 
 if __name__ == '__main__':
-    filename = '타입스크립트(내지).pdf'
-    pdftoc(filename)
+    pdftoc(sys.argv[1])
 
     
