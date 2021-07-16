@@ -2,3 +2,5 @@
 /.venv
 /.vscode
 /타입스크립트(내지).pdf
+/__pycache__
+/build
