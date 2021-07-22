@@ -80,10 +80,8 @@ def get_toc_data(data):
     h3 = re.compile('^([0-9]+|[A-Z])\.[0-9]+\.[0-9]+ ')
     h2tag = 0
     h3tag = 0
-    for line in data:
-        if line['tag'] > 150:
-            continue   
-        if line['page'] < 50: # 앞부속이 40페이지를 넘으면 수정 필요
+    for line in data:  
+        if line['page'] < 50: # 앞부속이 50페이지를 넘으면 수정 필요
             continue
         if h2.match(line['text']) != None:
             if h2tag == 0:
@@ -125,10 +123,17 @@ def make_pdf_toc(toc_data, h2tag, txt_toc, filename):
     outputname = filename[:-4] + '_목차적용.pdf'
     txtname = filename[:-4] + '.txt'
     
-    outputtxt = open(txtname,'w')
+    outputtxt = open(txtname, 'w', encoding='utf8')
     outputStream = open(outputname,'wb')
 
     for line in txt_toc:
+        if line['text'][0:4] == 'Part':
+            outputtxt.write('\n')
+        if h1.match(line['text']) != None:
+            outputtxt.write('\n')
+            chno = line['text'].split('.')
+            chno = chno[0]
+            outputtxt.write(chno + '\n')
         txtdata = line['text'] + '\t' + str(line['page']) + '\n'
         outputtxt.write(txtdata)
     outputtxt.close()
