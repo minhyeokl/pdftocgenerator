@@ -75,26 +75,33 @@ def headers_para(doc, size_tag):
 
 def get_toc_data(data):
     toc_data = []
-    
+    txt_toc = []
     h2 = re.compile('^([0-9]+|[A-Z])\.[0-9]+ ')
     h3 = re.compile('^([0-9]+|[A-Z])\.[0-9]+\.[0-9]+ ')
     h2tag = 0
     h3tag = 0
     for line in data:
         if line['tag'] > 150:
+            continue   
+        if line['page'] < 50: # 앞부속이 40페이지를 넘으면 수정 필요
             continue
         if h2.match(line['text']) != None:
             if h2tag == 0:
                 h2tag = line['tag']
-            toc_data.append(line)
         if h3.match(line['text']) != None:
             if h3tag == 0:
                 h3tag = line['tag']
-            toc_data.append(line)
-    txt_toc = []
+        if h2tag != 0 and h3tag != 0:
+            break
+
     for line in data:
         if line['tag'] == h2tag or line['tag'] == h3tag:
             txt_toc.append(line)
+    for line in txt_toc:
+        if h2.match(line['text']) != None:
+            toc_data.append(line)
+        if h3.match(line['text']) != None:
+            toc_data.append(line)
     return toc_data, h2tag, txt_toc
 
 def make_pdf_toc(toc_data, h2tag, txt_toc, filename):
@@ -111,6 +118,7 @@ def make_pdf_toc(toc_data, h2tag, txt_toc, filename):
                 chno = mark['text'].split('.')
                 chno = chno[0]
                 h1par = output.addBookmark(chno, mark['page'], parent=None)
+            print(mark)
             h2par = output.addBookmark(mark['text'], mark['page'], parent=h1par)
         else:
             output.addBookmark(mark['text'], mark['page'], parent=h2par)
@@ -136,6 +144,7 @@ def pdftoc(filename):
 
     data = headers_para(doc, size_tag)
     toc_data, h2tag, txt_toc = get_toc_data(data)
+    
     make_pdf_toc(toc_data, h2tag, txt_toc, filename)
 
 if __name__ == '__main__':
