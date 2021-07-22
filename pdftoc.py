@@ -118,7 +118,6 @@ def make_pdf_toc(toc_data, h2tag, txt_toc, filename):
                 chno = mark['text'].split('.')
                 chno = chno[0]
                 h1par = output.addBookmark(chno, mark['page'], parent=None)
-            print(mark)
             h2par = output.addBookmark(mark['text'], mark['page'], parent=h1par)
         else:
             output.addBookmark(mark['text'], mark['page'], parent=h2par)

@@ -1,7 +1,8 @@
 /.DS_Store
 /.venv
 /.vscode
-/타입스크립트(내지).pdf
+/*.pdf
+/*.txt
 /__pycache__
 /build
 /test.py

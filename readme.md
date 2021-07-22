@@ -1,6 +1,6 @@
 # 목차 생성기
 ## 다운로드
-* **[다운받기](/raw/master/dist/tocGenerator.exe)**
+* **[다운받기](https://github.com/minhyeokl/pdftocgenerator/raw/master/dist/tocGenerator.exe)**
 
 ## 사용법
 1. tocGenerator.exe를 실행합니다.
